@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Update Profile</h1>
+        <form method="POST" action="{{ url_for('update_profile') }}">
+            <input type="text" name="name" placeholder="Name" value="{{ current_user.name }}" required>
+            <input type="email" name="email" placeholder="Email" value="{{ current_user.email }}" required>
+            <input type="text" name="phone" placeholder="Phone" value="{{ current_user.phone }}">
+            <select name="availability">
+                <option value="weekly" {% if current_user.availability == 'weekly' %}selected{% endif %}>Weekly</option>
+                <option value="monthly" {% if current_user.availability == 'monthly' %}selected{% endif %}>Monthly</option>
+            </select>
+            <label>
+                <input type="checkbox" name="subscribe_newsletter" {% if current_user.subscribe_newsletter %}checked{% endif %}>
+                Subscribe to newsletter
+            </label>
+            <label>
+                <input type="checkbox" name="active_volunteer" {% if current_user.active_volunteer %}checked{% endif %}>
+                Active volunteer
+            </label>
+            <button type="submit">Update Profile</button>
+        </form>
+    </div>
+</body>
+</html>

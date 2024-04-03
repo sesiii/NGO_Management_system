@@ -1,0 +1,270 @@
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 1s ease;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .navbar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            background-color: #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .flashes {
+            display: none;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container animate__animated animate__fadeInDown">
+        <div class="header">
+            <h1>Welcome ADMIN!</h1>
+        </div>
+
+        <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/donor_list"><i class="fas fa-list"></i> View Donors</a>
+            <a href="/volunteer_list"><i class="fas fa-list"></i> View Volunteer List</a>
+            <a href="/pending_students"><i class="fas fa-list"></i> View pending students</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+        </div>
+
+
+        <div class="flashes">
+            <p class="message">Success! New student added.</p>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript function to show flashed messages
+        function showMessage() {
+            var messageDiv = document.querySelector('.flashes');
+            messageDiv.style.display = 'block';
+
+            setTimeout(function () {
+                messageDiv.style.display = 'none';
+            }, 5000); // Hide the message after 5 seconds
+        }
+        // Call the showMessage function when the page loads
+        showMessage();
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "#vanta-canvas",
+            color: 0x1e1e1e,
+            backgroundColor: 0x0,
+            points: 12.00,
+            maxDistance: 20.00,
+            spacing: 20.00
+        });
+    </script>
+
+</body>
+
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            animation: fadeInDown 1s ease;
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .navbar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            padding: 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 20px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            background-color: #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .flashes {
+            display: none;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vanta-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    <div class="container animate__animated animate__fadeInDown">
+        <div class="header">
+            <h1>Welcome ADMIN!</h1>
+        </div>
+
+        <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/donor_list"><i class="fas fa-list"></i> View Donors</a>
+            <a href="/volunteer_list"><i class="fas fa-list"></i> View Volunteer List</a>
+            <a href="/pending_students"><i class="fas fa-list"></i> View pending students</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+        </div>
+
+
+        <div class="flashes">
+            <p class="message">Success! New student added.</p>
+        </div>
+    </div>
+
+    <!-- <script>
+        // JavaScript function to show flashed messages
+        function showMessage() {
+            var messageDiv = document.querySelector('.flashes');
+            messageDiv.style.display = 'block';
+
+            setTimeout(function () {
+                messageDiv.style.display = 'none';
+            }, 5000); // Hide the message after 5 seconds
+        }
+        // Call the showMessage function when the page loads
+        showMessage();
+    </script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "#vanta-canvas",
+            color: 0x1e1e1e,
+            color2: 0xff0000,
+            backgroundColor: 0x0,
+            points: 12.00,
+            maxDistance: 20.00,
+            spacing: 20.00,
+            mouseControls: true,
+            touchControls: true,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundAlpha: 0.8
+        });
+    </script>
+
+</body>
+
+</html>

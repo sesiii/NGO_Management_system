@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .form-container {
+            padding: 20px;
+        }
+
+        .form-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: #444;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- <div class="header">
+            <h1>Welcome ADMIN!</h1>
+        </div> -->
+
+        <!-- <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/estimate_funds"><i class="fas fa-dollar-sign"></i> Estimate funds</a>
+            <a href="/donor_list"><i class="fas fa-list"></i> View Donor List</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+        </div> -->
+
+        <div class="form-container">
+            <h1>Create a new student</h1>
+
+            <form id="createForm" action="/create_student" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="text" id="age" name="age" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="class_">Class:</label>
+                    <input type="text" id="class_" name="class_" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="school">School:</label>
+                    <input type="text" id="school" name="school" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="parental_income">Parental Income:</label>
+                    <input type="text" id="parental_income" name="parental_income" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Help Type:</label><br>
+                    <input type="checkbox" id="money" name="help_type" value="Money">
+                    <label for="money">Money</label><br>
+                    <input type="checkbox" id="books" name="help_type" value="Books">
+                    <label for="books">Books</label><br>
+                    <input type="checkbox" id="fees" name="help_type" value="Fees">
+                    <label for="fees">Fees</label><br>
+                    <input type="checkbox" id="food" name="help_type" value="Food">
+                    <label for="food">Food</label><br>
+                    <input type="checkbox" id="other" name="help_type" value="Other">
+                    <label for="other">Other</label><br>
+                    <input type="checkbox" id="uniform" name="help_type" value="Uniform">
+                    <label for="uniform">Uniform</label><br>
+                </div>
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+
+            <a class="button" href="/home">Back to home</a>
+        </div>
+
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#createForm').submit(function (e) {
+                e.preventDefault();
+
+                // Send POST request
+                $.ajax({
+                    url: '/create_student',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Student account created successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/create_student'; // Redirect to the same page
+                            }
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred while creating the student account.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

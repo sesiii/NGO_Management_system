@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="vanta-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 form-container">
+                <h1 class="text-center">Update Student</h1>
+
+                <form id="updateForm" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age:</label>
+                        <input type="text" class="form-control" id="age" name="age" value="{{ student.age }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="school">School:</label>
+                        <input type="text" class="form-control" id="school" name="school" value="{{ student.school }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="parental_income">Parental Income:</label>
+                        <input type="text" class="form-control" id="parental_income" name="parental_income" value="{{ student.parental_income }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="help_type">Help Type:</label>
+                        <input type="text" class="form-control" id="help_type" name="help_type" value="{{ student.help_type }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+
+                <a class="btn btn-secondary mt-3" href="/students">Back to Students List</a>
+
+                <script>
+                    $('#updateForm').submit(function(e) {
+                        e.preventDefault();
+
+                        // Send POST request
+                        $.ajax({
+                            url: '/students/' + {{ student.id }} + '/update',
+                            type: 'POST',
+                            data: $(this).serialize(),
+                            success: function(response) {
+                                Swal.fire({
+                                    title: 'Success!',
+                                    text: response.message,
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '/students';
+                                    }
+                                });
+                            }
+                        });
+                    });
+                </script>
+                 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+                 <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
+                 <script>
+                     VANTA.NET({
+                         el: "#vanta-canvas",
+                         color: 0x1e1e1e,
+                         backgroundColor: 0x0,
+                         points: 12.00,
+                         maxDistance: 20.00,
+                         spacing: 20.00
+                     });
+                 </script>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

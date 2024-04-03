@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteers List</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Add some custom styling to the table */
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .table tr:nth-child(even){background-color: #f2f2f2;}
+        .table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .navbar {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            /* Reduced padding */
+            margin: 0 5px;
+            /* Reduced margin */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/pending_students"><i class="fas fa-dollar-sign"></i> Pending students</a>            <a href="/donor_list"><i class="fas fa-list"></i> View Donor List</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+            <a href="/volunteer_list"><i class="fas fa-list"></i> View Volunteer List</a>
+        </div>
+        <h1 class="my-4">Volunteers List</h1>
+        <a href="/home" class="btn btn-primary mb-4">Back to Home</a>
+        <form method="GET" class="mb-4">
+            <label for="subscribe_newsletter">Subscribed to Newsletter:</label>
+            <select name="subscribe_newsletter" id="subscribe_newsletter">
+                <option value="">Select</option>
+                <option value="Yes" {% if request.args.get('subscribe_newsletter') == 'Yes' %} selected {% endif %}>Yes</option>
+                <option value="No" {% if request.args.get('subscribe_newsletter') == 'No' %} selected {% endif %}>No</option>
+            </select>
+        
+            <label for="active_volunteer"> Volunteer status:</label>
+            <select name="active_volunteer" id="active_volunteer">
+                <option value="">Select</option>
+                <option value="Yes" {% if request.args.get('active_volunteer') == 'Yes' %} selected {% endif %}>Yes</option>
+                <option value="No" {% if request.args.get('active_volunteer') == 'No' %} selected {% endif %}>No</option>
+            </select>
+        
+            <button type="submit">Apply Filters</button>
+            <a href="/volunteer_list" class="btn btn-warning">Reset Filters</a>
+        </form>
+        
+        
+        
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Availability</th>
+                    <th>Subscribed to Newsletter</th>
+                    <th>Active Volunteer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for volunteer in volunteers %}
+                <tr>
+                    <td>{{ volunteer.name }}</td>
+                    <td>{{ volunteer.email }}</td>
+                    <td>{{ volunteer.phone }}</td>
+                    <td>{{ volunteer.availability }}</td>
+                    <td>{{ "Yes" if volunteer.subscribe_newsletter else "No" }}</td>
+                    <td>{{ "Yes" if volunteer.active_volunteer else "No" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

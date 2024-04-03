@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donor List</title>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style>
+        /* Add some custom styling to the table */
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .table tr:nth-child(even){background-color: #f2f2f2;}
+        .table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .navbar {
+            background-color: #444;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            /* Reduced padding */
+            margin: 0 5px;
+            /* Reduced margin */
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/pending_students"><i class="fas fa-dollar-sign"></i> Pending students</a>
+            <a href="/donor_list"><i class="fas fa-list"></i> View Donor List</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+            <a href="/volunteer_list"><i class="fas fa-list"></i> View Volunteer List</a>
+        </div>
+        <h1 class="my-4">Donor List</h1>
+        <!-- Move the "Back to Home" button to the top -->
+        <a href="/home" class="btn btn-primary mb-4">Back to Home</a>
+        <form method="GET" class="mb-4">
+            <label for="help_type">Filter by Help Type:</label>
+            <select name="help_type" id="help_type" onchange="this.form.submit()">
+                <option value="">Select a Help Type</option>
+                <option value="Fees">Fees</option>
+                <option value="Books">Books</option>
+                <option value="Money">Money</option>
+                <option value="Food">Food</option>
+                <option value="Other">Other</option>
+                <option value="Uniform">Uniform</option>
+            </select>
+            
+            <button type="submit" name="sort" value="date">Sort by Date</button>
+            
+            <button type="reset" onclick="this.form.submit()">Remove All Filters</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email ID</th>
+                    <th>Help Type</th>
+                    <th>Donation Amount</th>
+                    <th>Donation Date</th> <!-- Add a header for the donation date -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for donor in donors %}
+                <tr>
+                    <td>{{ donor.name }}</td>
+                    <td>{{ donor.phone_no }}</td>
+                    <td>{{ donor.email_id }}</td>
+                    <td>{{ donor.help_type }}</td>
+                    <td>{{ donor.donation_amount }}</td>
+                    <td>
+                        {% if donor.donation_date %}
+                            {{ donor.donation_date.strftime('%Y-%m-%d') }} <!-- Display the donation date -->
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

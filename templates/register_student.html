@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Register New Student</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Add your CSS here */
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h1>Welcome!</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="registerForm" action="/register_student" method="post">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" id="name" name="name" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age:</label>
+                                <input type="text" id="age" name="age" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="class_">Class:</label>
+                                <input type="text" id="class_" name="class_" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="school">School:</label>
+                                <input type="text" id="school" name="school" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="parental_income">Parental Income:</label>
+                                <input type="text" id="parental_income" name="parental_income" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>Help Type:</label><br>
+                                <input type="checkbox" id="money" name="help_type" value="Money">
+                                <label for="money">Money</label><br>
+                                <input type="checkbox" id="books" name="help_type" value="Books">
+                                <label for="books">Books</label><br>
+                                <input type="checkbox" id="fees" name="help_type" value="Fees">
+                                <label for="fees">Fees</label><br>
+                                <input type="checkbox" id="food" name="help_type" value="Food">
+                                <label for="food">Food</label><br>
+                                <input type="checkbox" id="other" name="help_type" value="Other">
+                                <label for="other">Other</label><br>
+                                <input type="checkbox" id="uniform" name="help_type" value="Uniform">
+                                <label for="uniform">Uniform</label><br>
+                            </div>
+                            <input type="submit" value="Submit" class="btn btn-primary">
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a class="btn btn-secondary" href="/">Back to home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#registerForm').submit(function (e) {
+                e.preventDefault();
+
+                var name = document.getElementById('name').value;
+                var age = document.getElementById('age').value;
+                var class_ = document.getElementById('class_').value;
+                var school = document.getElementById('school').value;
+                var parental_income = document.getElementById('parental_income').value;
+                var help_type = document.getElementsByName('help_type');
+
+                var isHelpTypeChecked = false;
+                for (var i = 0; i < help_type.length; i++) {
+                    if (help_type[i].checked) {
+                        isHelpTypeChecked = true;
+                        break;
+                    }
+                }
+
+                if(name == "" || age == "" || class_ == "" || school == "" || parental_income == "" || !isHelpTypeChecked) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'All fields must be filled out',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    return false;
+                }
+
+                // Send POST request
+                $.ajax({
+                    url: '/register_student',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        Swal.fire({
+                            title: 'Success!',
+                            text: 'Student registered successfully!',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/'; // Redirect to the same page
+                            }
+                        });
+                    },
+                    error: function () {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'An error occurred while registering the student.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

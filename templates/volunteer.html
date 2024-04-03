@@ -1,0 +1,55 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volunteer Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .profile-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .profile-info p {
+            margin-bottom: 10px;
+        }
+        a {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome, {{ current_user.name }}!</h1>
+        <div class="profile-info">
+            <p>Email: {{ current_user.email }}</p>
+            <p>Phone: {{ current_user.phone }}</p>
+            <p>Availability: {{ current_user.availability }}</p>
+            <p>Subscribed to Newsletter: {{ "Yes" if current_user.subscribe_newsletter else "No" }}</p>
+            <p>Active Volunteer: {{ "Yes" if current_user.active_volunteer else "No" }}</p>
+        </div>
+        <a href="{{ url_for('update_profile') }}">Update Profile</a>
+        <a href="{{ url_for('ngo_main') }}" style="margin-left: 10px;">Return to Main</a>
+    </div>
+</body>
+</html>

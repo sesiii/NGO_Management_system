@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 400px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 50px auto;
+            padding: 30px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+
+        .h-captcha {
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a.button {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+
+        a.button:hover {
+            color: #0056b3;
+        }
+
+        #message {
+            margin-top: 10px;
+            color: red;
+        }
+
+        #timer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        #spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        #progress {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height:5px;
+            background-color: #3498db;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>Login</h1>
+
+        <form id="loginForm" action="/login" method="post">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br>
+
+            <div class="h-captcha" data-sitekey="851b6311-2caa-428c-81eb-d885f1ea4eb9"></div>
+
+            <input type="submit" value="Submit" id="submit-button">
+        </form>
+
+        <a class="button" href="/">Home Page</a>
+        <div id="message"></div>
+    </div>
+
+    <div id="timer" class="centered"></div>
+
+    <div id="overlay" style="display: none;">
+        <div id="spinner" class="centered" style="display: none;"></div>
+        <progress id="progress" value="0" max="30" class="centered" style="display: none;"></progress>
+    </div>
+
+    <script>
+        var submitButton = document.getElementById('submit-button');
+        var messageDiv = document.getElementById('message');
+        var failedAttempts = 0;
+        var progress = document.getElementById('progress');
+        var spinner = document.getElementById('spinner');
+        var overlay = document.getElementById('overlay'); // Get the overlay
+
+        document.querySelector('form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            var captchaResponse = hcaptcha.getResponse();
+
+            if (username !== 'admin' || password !== 'admin123' || captchaResponse === '') {
+                var errorMessage = 'Incorrect username or password';
+                if (captchaResponse === '') {
+                    errorMessage = 'Please complete the captcha';
+                }
+                Swal.fire({
+                    title: 'Error!',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    const swalPopup = document.querySelector('.swal2-popup');
+                    const rect = swalPopup.getBoundingClientRect();
+
+                    spinner.style.top = `${rect.top + window.scrollY}px`;
+                    spinner.style.left = `${rect.left + window.scrollX}px`;
+                    spinner.style.width = `${rect.width}px`;
+                    spinner.style.height = `${rect.height}px`;
+                });
+
+                failedAttempts++;
+                if (failedAttempts >= 3) {
+                    submitButton.disabled = true;
+                    submitButton.style.backgroundColor = 'grey';
+                    var counter = 30;
+                    progress.style.display = 'none';
+                    spinner.style.display = 'none'; // Show spinner
+                    overlay.style.display = 'block'; // Show overlay
+                    var interval = setInterval(function () {
+                        counter--;
+                        progress.value = 30 - counter;
+                        document.getElementById('timer').textContent = 'Try again in ' + counter + ' seconds';
+                        if (counter % 2 === 0) { // Show popup every 2 seconds
+                            var timerInterval;
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Too many failed attempts. Please try again later.',
+                                timer: 2000, // Popupwill close after 2 seconds
+                                timerProgressBar: true,
+                                showConfirmButton: false,
+                               
+                                willOpen: () => {
+                                    Swal.showLoading()
+                                    timerInterval = setInterval(() => {
+                                        const content = Swal.getContent()
+                                        if (content) {
+                                            const b = content.querySelector('b')
+                                            if (b) {
+                                                b.textContent = Swal.getTimerLeft()
+                                            }
+                                        }
+                                    }, 100)
+                                },
+                                willClose: () => {
+                                    clearInterval(timerInterval)
+                                }
+                            });
+                        }
+                        if (counter === 0) {
+                            clearInterval(interval);
+                            submitButton.disabled = false;
+                            submitButton.style.backgroundColor = '';
+                            document.getElementById('timer').textContent = '';
+                            progress.style.display = 'none';
+                            spinner.style.display = 'none'; // Hide spinner
+                            overlay.style.display = 'none'; // Hide overlay
+                        }
+                    }, 1000);
+                }
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/login',
+                    data: {
+                        username: username,
+                        password: password,
+                        'h-captcha-response': captchaResponse
+                    },
+                    success: function (data, textStatus, xhr) {
+                        if (xhr.status === 200) {
+                            window.location.href = 'home';
+                        }
+                        else {
+                            // Handle error
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'An error occurred while logging in. Please try again.',
+                                icon: 'error',
+                                confirmButtonText: 'OK'
+                            });
+                        }
+                    },
+                    error: function (xhr, textStatus, errorThrown) {
+                // Handle error
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'Could not connect to the server. Please check your internet connection and try again.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                });
+            }
+        });
+    </script>
+
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+</body>
+
+</html>
