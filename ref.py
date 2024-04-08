@@ -460,7 +460,7 @@ def create_student():
             'class_': f'{random.randint(1, 12)}th Grade',
             'school': 'XYZ High School',
             'parental_income': random.randint(10000, 100000),
-            'help_type': random.choice(['Scholarship', 'Grant', 'Loan'])
+            'help_type': random.choice(['Money', 'Books', 'Fees','Other','Food','Uniform'])
         }
         # # Get data from form
         # data = request.form

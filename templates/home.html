@@ -231,18 +231,16 @@
         </div>
     </div>
 
-    <!-- <script>
-        // JavaScript function to show flashed messages
-        function showMessage() {
-            var messageDiv = document.querySelector('.flashes');
-            messageDiv.style.display = 'block';
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var messageDiv = $('.flashes');
+            messageDiv.fadeIn();
 
-            setTimeout(function () {
-                messageDiv.style.display = 'none';
+            setTimeout(function() {
+                messageDiv.fadeOut();
             }, 5000); // Hide the message after 5 seconds
-        }
-        // Call the showMessage function when the page loads
-        showMessage();
+        });
     </script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.net.min.js"></script>
@@ -250,11 +248,11 @@
         VANTA.NET({
             el: "#vanta-canvas",
             color: 0x1e1e1e,
-            color2: 0xff0000,
-            backgroundColor: 0x0,
+            color2: 0xff8900,
+            backgroundColor: 0x5,
             points: 12.00,
-            maxDistance: 20.00,
-            spacing: 20.00,
+            maxDistance: 25.00,
+            spacing: 10.00,
             mouseControls: true,
             touchControls: true,
             minHeight: 200.00,
@@ -263,6 +261,23 @@
             scaleMobile: 1.00,
             backgroundAlpha: 0.8
         });
+
+        // Additional animation code
+        // Add your additional animation code here
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script>
+        gsap.to("#myElement", {
+            duration: 2,
+            x: 100,
+            y: 100,
+            scale: 2,
+            rotation: 360,
+            ease: "bounce.out"
+        });
+    </script>
+    
     </script>
 
 </body>

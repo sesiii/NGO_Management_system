@@ -88,6 +88,20 @@
             background-color: #555;
         }
 
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Change the colors of other elements as needed */
+        .dark-mode .container {
+            background-color: #444;
+        }
+
+        .dark-mode .form-container {
+            background-color: #555;
+        }
+
         .button {
             background-color: #007bff;
             color: #fff;
@@ -108,6 +122,8 @@
 
 <body>
     <div class="container">
+        <!-- Add this button to your HTML -->
+        <button id="darkModeToggle">Toggle Dark Mode</button>
         <!-- <div class="header">
             <h1>Welcome ADMIN!</h1>
         </div> -->
@@ -170,6 +186,10 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
+        // Add this JavaScript to your scripts
+        document.getElementById('darkModeToggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+        });
         $(document).ready(function () {
             $('#createForm').submit(function (e) {
                 e.preventDefault();
