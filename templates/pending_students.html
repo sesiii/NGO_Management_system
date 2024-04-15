@@ -36,10 +36,44 @@
         .button:hover {
             background-color: #0056b3;
         }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            flex-wrap: wrap;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50px;
+            background-color: #444;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="navbar">
+            <a href="/create_student"><i class="fas fa-user-plus"></i> Create a new student</a>
+            <a href="/students"><i class="fas fa-users"></i> View all students</a>
+            <a href="/donor_list"><i class="fas fa-list"></i> View Donors</a>
+            <a href="/volunteer_list"><i class="fas fa-list"></i> View Volunteer List</a>
+            <a href="/pending_students"><i class="fas fa-list"></i> View pending students</a>
+            <a href="/"><i class="fas fa-home"></i> Back to NGO Site</a>
+        </div>
         <h1 class="my-4">Pending Students</h1>
         <a href="/home" class="button">Back to Home</a>
         <table class="table table-striped">

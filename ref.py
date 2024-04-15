@@ -457,7 +457,7 @@ def create_student():
         data = {
             'name': random_name,
             'age': random.randint(10, 18),
-            'class_': f'{random.randint(1, 12)}th Grade',
+            'class_': f'{random.randint(1, 12)}',
             'school': 'XYZ High School',
             'parental_income': random.randint(10000, 100000),
             'help_type': random.choice(['Money', 'Books', 'Fees','Other','Food','Uniform'])
