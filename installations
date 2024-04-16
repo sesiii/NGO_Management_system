@@ -8,3 +8,4 @@ pip install requests
 pip install flask_login
 pip install flask_mail
 pip install werkzeug
+pip install sqlalchemy requests
