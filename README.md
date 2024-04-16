@@ -10,7 +10,7 @@ Access the app at [tinyurl.com/sesiii](https://tinyurl.com/sesiii) or at [bit.ly
 To run the project on your machine, simply follow these steps:
 
 1. Clone the repository.
-2. Install all the required dependencies.
+2. Install all the required dependencies from "installations' file above
 3. Set up your MySQL account, run the commands in the MySQL terminal from the file "MYSQL setup".
 4. Create four tables in a database named "ngo_management".
 5. Change the route in the Python file to your MySQL database.
