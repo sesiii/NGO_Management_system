@@ -2,7 +2,7 @@
 
 Welcome to the NGO Management System, a Flask web application designed to streamline NGO operations and management.
 
-Access the app at (tinyurl.com/sesiii).
+Access the app at (tinyurl.com/sesiii) or at bit.ly/haasi
 
 To run the project on your machine, simply follow these steps:
 
@@ -13,6 +13,6 @@ To run the project on your machine, simply follow these steps:
 5. Change the route in the python file to you mysql database.
 6. That's it! You're ready to run the app.
 
-Alternatively, you can directly access the app through (tinyurl.com/sesiii). 
+Alternatively, you can directly access the app through (tinyurl.com/sesiii) or bit.ly/haasi
 
 Streamline your NGO operations today with our user-friendly management system!
