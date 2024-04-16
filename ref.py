@@ -1,10 +1,27 @@
-
 from flask import Flask, render_template, flash, redirect, request, url_for, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from faker import Faker
 import pyotp
 import uuid
+from flask import request
+from sqlalchemy import DateTime
+from sqlalchemy import func
+from flask import jsonify
+from flask import Flask, request, session, flash, redirect, url_for, render_template
+from datetime import datetime, timezone, timedelta
+import requests
+from flask_login import LoginManager
+from flask_mail import Mail, Message
+from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
+from flask import Flask, render_template, request, redirect, url_for
+import string 
+import random
+from sqlalchemy import or_, cast, Date
+from datetime import datetime
+from flask_login import UserMixin, current_user, login_required, login_user
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__,static_folder='assets')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://dadi:root@localhost/ngo_management'
@@ -19,10 +36,6 @@ with app.app_context():
 def generate_uuid():
     return str(uuid.uuid4())
 
-from sqlalchemy import DateTime
-
-from flask_mail import Mail, Message
-
 app.config['MAIL_SERVER'] = 'in-v3.mailjet.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = '079e64bfb75a32c5aa73dcb1728db675'
@@ -31,8 +44,6 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
 
 mail = Mail(app)
-
-from sqlalchemy import func
 
 class Donor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,15 +59,15 @@ class PendingStudent(db.Model):
     student_id = db.Column(db.String(64), unique=True, default=generate_uuid)
     name = db.Column(db.String(64), index=True)
     age = db.Column(db.Integer)
-    class_ = db.Column(db.String(64))  # Change this line
+    class_ = db.Column(db.String(64)) 
     school = db.Column(db.String(128))
     parental_income = db.Column(db.Float)
     help_type = db.Column(db.String(128))
 
-    def __init__(self, name, age, class_, school, parental_income, help_type):  # Change this line
+    def __init__(self, name, age, class_, school, parental_income, help_type):  
         self.name = name
         self.age = age
-        self.class_ = class_  # Change this line
+        self.class_ = class_ 
         self.school = school
         self.parental_income = parental_income
         self.help_type = help_type
@@ -87,21 +98,6 @@ class Student(db.Model):
             'help_type': self.help_type
         }
 
-fake = Faker()
-
-@app.route('/home', methods=['GET'])
-def admin_home():
-    return render_template('home.html')
-
-from datetime import datetime, timezone
-now = datetime.now(timezone.utc)
-from datetime import datetime, timedelta, timezone
-
-from flask import Flask, render_template, request, redirect, url_for
-
-from flask_login import UserMixin, current_user, login_required, login_user
-from werkzeug.security import generate_password_hash, check_password_hash
-
 class Volunteer(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -117,10 +113,16 @@ class Volunteer(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+fake = Faker()
 
+@app.route('/home', methods=['GET'])
+def admin_home():
+    return render_template('home.html')
+
+now = datetime.now(timezone.utc)
 
 # Routes for signup, login, and volunteer dashboard
-
 @app.route('/signup_volunteer', methods=['GET', 'POST'])
 def signup_volunteer():
     if request.method == 'POST':
@@ -154,7 +156,7 @@ def signup_volunteer():
         return redirect(url_for('login_volunteer'))
     return render_template('signup_volunteer.html')
 
-from flask import jsonify
+
 
 @app.route('/login_volunteer', methods=['GET', 'POST'])
 def login_volunteer():
@@ -176,7 +178,7 @@ def login_volunteer():
 
     return render_template('login_volunteer.html')
 
-from flask_login import LoginManager
+
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -209,7 +211,7 @@ def update_profile():
         return redirect(url_for('volunteer'))
     return render_template('update_profile_volunteer.html')
 
-from flask import request
+
 
 @app.route('/volunteer_list')
 def volunteer_list():
@@ -229,6 +231,22 @@ def volunteer_list():
     return render_template('volunteer_list.html', volunteers=volunteers)
 
 
+# @app.route('/contact_us', methods=['GET', 'POST'])
+# def contact():
+#     if request.method == 'POST':
+#         user_email = request.form.get('email')
+#         subject = request.form.get('subject')
+#         body = request.form.get('body')
+
+#         msg = Message(subject, sender='sesidadi.nssc@gmail.com', recipients=['sesidadi.nssc@gmail.com'])
+#         msg.body = f"Message from {user_email}:\n\n{body}"
+#         mail.send(msg)
+
+#         return jsonify({'message': 'Email sent successfully'}), 200
+#     else:
+#         return render_template('contact_us.html')
+    
+
 @app.route('/contact_us', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -242,7 +260,7 @@ def contact():
 
         return jsonify({'message': 'Email sent successfully'}), 200
     else:
-        return render_template('contact_us.html')
+        return render_template('contact_us.html')  
     
 @app.route('/donate', methods=['GET', 'POST'])
 def submit_donation():
@@ -286,12 +304,10 @@ def coming_soon():
 
 @app.route('/payment')
 def payment():
-    # return redirect("https://buy.stripe.com/test_eVa0064pN0Qyd7WdQQ", code=302)
     return redirect("https://donate.stripe.com/test_9AQ7syg8vbvc1peeUW", code=302)
 
 
-from sqlalchemy import or_, cast, Date
-from datetime import datetime
+
 @app.route('/donor_list')
 def donor_list():
     # Get the selected help types and donation dates from the query parameters
@@ -327,10 +343,6 @@ def donor_list():
 
     # Render the donor_list.html template and pass the donors and help types to it
     return render_template('donor_list.html', donors=donors, help_types=help_types)
-
-from flask import Flask, request, session, flash, redirect, url_for, render_template
-from datetime import datetime, timezone, timedelta
-import requests
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -386,8 +398,7 @@ def login():
 
     return render_template('login.html')
 
-import string 
-import random
+
 
 def random_string(length):
     """Generate a random string of fixed length """
