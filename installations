@@ -1,0 +1,10 @@
+pip install flask
+pip install flask_sqlalchemy
+pip install flask_migrate
+pip install faker
+pip install pyotp
+pip install uuid
+pip install requests
+pip install flask_login
+pip install flask_mail
+pip install werkzeug
