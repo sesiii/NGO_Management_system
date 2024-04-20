@@ -1,16 +1,23 @@
-
-
-
 # NGO Management System
+
+![NGO Management System](https://img.shields.io/badge/NGO_Management_System-Streamline_Operations-brightgreen)
+[![GitHub stars](https://img.shields.io/github/stars/sesiii/NGO_Management_system?style=social)](https://github.com/sesiii/NGO_Management_system/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/sesiii/NGO_Management_system?style=social)](https://github.com/sesiii/NGO_Management_system/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/sesiii/NGO_Management_system?style=social)](https://github.com/sesiii/NGO_Management_system/watchers)
 
 Welcome to the NGO Management System, a Flask web application designed to streamline NGO operations and management.
 
-Access the app at [tinyurl.com/sesiii](https://tinyurl.com/sesiii) or at [bit.ly/haasi](https://bit.ly/haasi).
+![NGO Management System Preview](https://path-to-your-preview-image.png)
 
-To run the project on your machine, simply follow these steps:
+### Access the app:
+
+- [tinyurl.com/sesiii](https://tinyurl.com/sesiii)
+- [bit.ly/haasi](https://bit.ly/haasi)
+
+### Installation:
 
 1. Clone the repository.
-2. Install all the required dependencies from "installations' file above
+2. Install all the required dependencies from the "installations' file above.
 3. Set up your MySQL account, run the commands in the MySQL terminal from the file "MYSQL setup".
 4. Create four tables in a database named "ngo_management".
 5. Change the route in the Python file to your MySQL database.
